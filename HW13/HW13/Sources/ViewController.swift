@@ -62,12 +62,14 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = DetailViewController()
-        if (indexPath.row == 2)
+        let cell = tableView.cellForRow(at: indexPath)
+        print(cell?.textLabel?.text ?? "")
+        if (cell?.textLabel?.text == "Bluetooth")
         {
-            detailVC.isOn = tableView.cellForRow(at: indexPath)?.detailTextLabel?.text == "Вкл."
+            detailVC.isOn = cell?.detailTextLabel?.text == "Вкл."
+            navigationController?.pushViewController(detailVC, animated: true)
         }
         tableView.deselectRow(at: indexPath, animated: true)
-        navigationController?.pushViewController(detailVC, animated: true)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

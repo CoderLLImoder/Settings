@@ -23,7 +23,7 @@ class CustomTableViewCell: UITableViewCell {
     
     var setting: Setting? {
         didSet {
-            label.text = setting?.name
+            textLabel?.text = setting?.name
             iconView.image = setting?.image
             let notifyCount = setting?.notifyCount
             notifyView.image = notifyCount! > 0 ? UIImage(systemName: "\(notifyCount!).circle.fill") : nil
@@ -33,6 +33,7 @@ class CustomTableViewCell: UITableViewCell {
     
     private lazy var label: UILabel = {
         let label = UILabel()
+        label.text = textLabel?.text
         label.textColor = UIColor.black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
