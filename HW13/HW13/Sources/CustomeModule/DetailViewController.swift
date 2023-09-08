@@ -9,6 +9,12 @@ import UIKit
 
 class DetailViewController: UIViewController {
     
+    enum CustomConstraints: CGFloat {
+        case padding10 = 10
+        case padding20 = 20
+        case padding40 = 40
+    }
+    
     public var isOn = false
     
     private lazy var rect: UIView = {
@@ -54,15 +60,15 @@ class DetailViewController: UIViewController {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            rect.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-            rect.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            rect.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
-            rect.heightAnchor.constraint(equalToConstant: 40),
+            rect.leftAnchor.constraint(equalTo: view.leftAnchor, constant: CustomConstraints.padding20.rawValue),
+            rect.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: CustomConstraints.padding10.rawValue),
+            rect.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -CustomConstraints.padding20.rawValue),
+            rect.heightAnchor.constraint(equalToConstant: CustomConstraints.padding40.rawValue),
             
-            label.leftAnchor.constraint(equalTo: rect.leftAnchor, constant: 40),
+            label.leftAnchor.constraint(equalTo: rect.leftAnchor, constant: CustomConstraints.padding40.rawValue),
             label.centerYAnchor.constraint(equalTo: rect.centerYAnchor),
             
-            switchButton.rightAnchor.constraint(equalTo: rect.rightAnchor, constant: -20),
+            switchButton.rightAnchor.constraint(equalTo: rect.rightAnchor, constant: -CustomConstraints.padding20.rawValue),
             switchButton.centerYAnchor.constraint(equalTo: rect.centerYAnchor)
             ])
         

@@ -97,6 +97,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
             return cell!
         }
         
+        return createDefaultCellbySetting(setting)
+    }
+    
+    func createDefaultCellbySetting(_ setting: Setting) -> UITableViewCell{
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
         cell.textLabel?.text = setting.name
         cell.detailTextLabel?.text = setting.text
@@ -104,11 +108,10 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         cell.imageView?.image = setting.image
         cell.imageView?.layer.cornerRadius = 5
         cell.imageView?.clipsToBounds = true
-        
         return cell
     }
-    
 }
+
 
 
 
