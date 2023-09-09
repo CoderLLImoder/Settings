@@ -20,7 +20,7 @@ class DetailViewController: UIViewController {
     private lazy var rect: UIView = {
         let rect = UIView()
         rect.layer.cornerRadius = 10
-        rect.backgroundColor = .systemGray5
+        rect.backgroundColor = .systemFill
         rect.clipsToBounds = true
         rect.translatesAutoresizingMaskIntoConstraints = false
         return rect
@@ -28,7 +28,7 @@ class DetailViewController: UIViewController {
     
     private lazy var label: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = .label
         label.text = "Bluetooth"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -43,7 +43,7 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         title = "Bluetooth"
         navigationController?.navigationBar.prefersLargeTitles = true
         setupHierarchy()
