@@ -7,9 +7,9 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+final class DetailViewController: UIViewController {
     
-    enum CustomConstraints: CGFloat {
+    private enum CustomConstraints: CGFloat {
         case padding10 = 10
         case padding20 = 20
         case padding40 = 40
@@ -43,9 +43,7 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
-        title = "Bluetooth"
-        navigationController?.navigationBar.prefersLargeTitles = true
+        setupViewSettings()
         setupHierarchy()
         setupLayout()
     }
@@ -72,5 +70,11 @@ class DetailViewController: UIViewController {
             switchButton.centerYAnchor.constraint(equalTo: rect.centerYAnchor)
             ])
         
+    }
+    
+    private func setupViewSettings() {
+        view.backgroundColor = .systemBackground
+        title = "Bluetooth"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }

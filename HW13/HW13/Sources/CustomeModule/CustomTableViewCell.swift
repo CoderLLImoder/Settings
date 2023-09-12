@@ -7,9 +7,17 @@
 
 import UIKit
 
-class CustomTableViewCell: UITableViewCell {
+final class CustomTableViewCell: UITableViewCell {
 
     static let id = "CustomCell"
+    
+    private enum CustomConstants: CGFloat {
+        case padding15 = 15
+        case padding20 = 20
+        case padding25 = 25
+        case padding50 = 50
+        case radius5 = 5
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -18,7 +26,7 @@ class CustomTableViewCell: UITableViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
     }
     
     var setting: Setting? {
@@ -41,7 +49,7 @@ class CustomTableViewCell: UITableViewCell {
     
     private lazy var iconView: UIImageView = {
         let iconView = UIImageView()
-        iconView.layer.cornerRadius = 5
+        iconView.layer.cornerRadius = CustomConstants.radius5.rawValue
         iconView.clipsToBounds = true
         iconView.translatesAutoresizingMaskIntoConstraints = false
         return iconView
@@ -71,18 +79,18 @@ class CustomTableViewCell: UITableViewCell {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            iconView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 20),
+            iconView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: CustomConstants.padding20.rawValue),
             iconView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             
-            label.leftAnchor.constraint(equalTo: iconView.rightAnchor, constant: 15),
+            label.leftAnchor.constraint(equalTo: iconView.rightAnchor, constant: CustomConstants.padding15.rawValue),
             label.centerYAnchor.constraint(equalTo: self.centerYAnchor),
             
-            notifyView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -50),
+            notifyView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -CustomConstants.padding50.rawValue),
             notifyView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            notifyView.widthAnchor.constraint(equalToConstant: 25),
-            notifyView.heightAnchor.constraint(equalToConstant: 25),
+            notifyView.widthAnchor.constraint(equalToConstant: CustomConstants.padding25.rawValue),
+            notifyView.heightAnchor.constraint(equalToConstant: CustomConstants.padding25.rawValue),
             
-            switchButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -20),
+            switchButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -CustomConstants.padding20.rawValue),
             switchButton.centerYAnchor.constraint(equalTo: self.centerYAnchor)
             ])
     }
