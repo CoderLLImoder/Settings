@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "wifi.square.fill.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
