@@ -1,26 +1,65 @@
 //
-//  Extensions.swift
+//  SettingsView.swift
 //  HW13
 //
-//  Created by Илья Капёрский on 12.09.2023.
+//  Created by Илья Капёрский on 23.09.2023.
 //
 
 import UIKit
 
-extension UIImage {
-    func resizeImage(_ width: Int, _ height: Int)-> UIImage?{
-        let newSize = CGSize(width: width, height: height) // Новый размер изображения
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
-        self.draw(in: CGRect(origin: CGPoint.zero, size: newSize))
-        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return resizedImage
+final class SettingView: UIView {
+    
+    func configureView(with model: [[Model]], _ vc: SettingsController) {
+        self.model = model
+        self.vc = vc
+        tableView.reloadData()
     }
+    
+    private lazy var model = [[Model]]()
+    
+    private lazy var vc = SettingsController()
+    
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: CustomTableViewCell.id)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
+    init() {
+        super.init(frame: .zero)
+        commonInit()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        commonInit()
+    }
+    private func commonInit() {
+        backgroundColor = .white
+        setupHierarchy()
+        setupLayout()
+    }
+    
+    private func setupHierarchy() {
+        addSubview(tableView)
+    }
+    
+    private func setupLayout() {
+        tableView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        tableView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
+    }
+    
 }
 
-extension ViewController: UITableViewDataSource, UITableViewDelegate {
+extension SettingView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        settings[section].count
+        model[section].count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -30,18 +69,18 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         if (cell?.textLabel?.text == "Bluetooth")
         {
             detailVC.isOn = cell?.detailTextLabel?.text == "Вкл."
-            navigationController?.pushViewController(detailVC, animated: true)
+            vc.changeViewController(detailVC)
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        settings.count
+        model.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let setting = settings[indexPath.section][indexPath.row]
+        let setting = model[indexPath.section][indexPath.row]
         
         if (setting.needSwitch)
         {
@@ -63,7 +102,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         return createDefaultCellbySetting(setting)
     }
     
-    func createDefaultCellbySetting(_ setting: Setting) -> UITableViewCell{
+    func createDefaultCellbySetting(_ setting: Model) -> UITableViewCell{
         let cell = UITableViewCell(style: .value1, reuseIdentifier: "cell")
         cell.textLabel?.text = setting.name
         cell.detailTextLabel?.text = setting.text
