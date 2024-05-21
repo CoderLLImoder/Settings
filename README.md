@@ -1,1 +1,1 @@
-Iphone settings screen. Layout only. UIKit.
+Iphone settings screen. Layout only. UITableView. UIKit.
