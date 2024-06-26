@@ -29,7 +29,7 @@ final class CustomTableViewCell: UITableViewCell {
         super.init(coder: coder)
     }
     
-    var setting: Setting? {
+    var setting: Model? {
         didSet {
             textLabel?.text = setting?.name
             iconView.image = setting?.image
